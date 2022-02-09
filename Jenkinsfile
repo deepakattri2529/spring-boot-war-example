@@ -1,10 +1,12 @@
 pipeline {
     agent any
+     tools {
+        maven 'maven'
+     }
     stages {
         stage('test') {
             steps {
-                sh "git clone https://github.com/deepakattri2529/spring-boot-war-example.git"
-                sh "mvn test"
+              sh "mvn test"
             }
         }
          stage('build') {
