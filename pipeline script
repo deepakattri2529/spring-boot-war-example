@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    stages {
+        stage('clone') {
+            steps {
+                sh "git clone https://github.com/deepakattri2529/spring-boot-war-example.git"
+            }
+        }
+        stage('compile & build') {
+            steps {
+                sh "mvn clean install -f spring-boot-war-example"
+            }
+        }
+        stage('deploy') {
+            steps {
+                deploy adapters: [tomcat9(credentialsId: '21034379-1b0d-4efb-850f-6dbe6ed92c41', path: '', url: 'http://13.233.48.143:8080/')], contextPath: '/app4', war: '**/*.war'
+            }
+        }
+    }
+}
